@@ -1,0 +1,23 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {% if entry %}
+        {{ slug }}
+    {% else %}
+        Error
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {% if entry %}
+        <p>{{ entry }}</p>
+    {% else %}
+        <h2>
+            Error
+        </h2>
+        <p>
+            The requested page, <em><b>{{ slug }}</b></em>, was not found.
+        </p>
+    {% endif %}
+
+{% endblock %}
