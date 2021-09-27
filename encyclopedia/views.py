@@ -7,9 +7,19 @@ from . import util
 # home page
 # home page
 def index(request):
-    return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()
-    })
+    if request.method == "POST":
+        q = request.POST["q"]
+        if q:
+            entry = util.get_entry(q)
+            if entry:
+                return redirect(f'wiki/{q}/')
+            else:
+                return redirect(f'search/q={q}/')
+
+    else:
+        return render(request, "encyclopedia/index.html", {
+            "entries": util.list_entries()
+        })
 
 # single entry page
 # single entry page
@@ -27,15 +37,14 @@ def single_entry(request, slug):
         }
     return render(request, "encyclopedia/single_entry.html", context)
 
-# search functionality
-# search functionality
-# search functionality
-def search(request):
-    if request.method == "POST":
-        q = request.POST["q"]
-        if q:
-            # return redirect("single_entry", slug=q )
-            return HttpResponseRedirect(reverse("encyclopedia:single_entry"), slug=q)
-
-    else:
-        pass
+# search result page
+# search result page
+# search result page
+def search(request, q):
+    entries = util.list_entries()
+    search_result = [k for k in entries if q in k]
+    context = {
+        "search_result": search_result,
+        "q": q
+    }
+    return render(request, "encyclopedia/search.html", context)

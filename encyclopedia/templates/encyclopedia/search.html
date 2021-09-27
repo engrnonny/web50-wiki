@@ -1,0 +1,27 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {% if entry %}
+        {{ slug }}
+    {% else %}
+        Error
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {% if search_result %}
+    <ul>
+        {% for entry in search_result %}
+            <li><a href="{% url 'single-entry' entry %}">{{ entry }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <h2>
+            No result
+        </h2>
+        <p>
+            There is no entry matching <em><b>{{ q }}</b></em>.
+        </p>
+    {% endif %}
+
+{% endblock %}
