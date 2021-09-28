@@ -9,8 +9,14 @@
 {% endblock %}
 
 {% block body %}
-    {% if entry %}
+    {% if entry %}    
+        <h1>{{ slug }}</h1>
         <p>{{ entry }}</p>
+        <div>
+            <button>
+                <a href="{% url 'edit-entry' slug %}">Edit</a>
+            </button>
+        </div>
     {% else %}
         <h2>
             Error

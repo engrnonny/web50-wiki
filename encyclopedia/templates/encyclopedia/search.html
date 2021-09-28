@@ -9,12 +9,17 @@
 {% endblock %}
 
 {% block body %}
+    <h1>Search</h1>
     {% if search_result %}
-    <ul>
-        {% for entry in search_result %}
-            <li><a href="{% url 'single-entry' entry %}">{{ entry }}</a></li>
-        {% endfor %}
-    </ul>
+        <h2>
+            No exact match
+        </h2>
+        <p>There are no exact matches for <em><b>{{ q }}</b></em>. entry. Possible entries include; </p>
+        <ul>
+            {% for entry in search_result %}
+                <li><a href="{% url 'single-entry' entry %}">{{ entry }}</a></li>
+            {% endfor %}
+        </ul>
     {% else %}
         <h2>
             No result
