@@ -10,8 +10,7 @@
 
 {% block body %}
     {% if entry %}    
-        <h1>{{ slug }}</h1>
-        <p>{{ entry }}</p>
+        {{ entry|safe }}
         <div>
             <button>
                 <a href="{% url 'edit-entry' slug %}">Edit</a>

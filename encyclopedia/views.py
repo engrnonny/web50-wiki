@@ -6,7 +6,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 
 from django.urls import reverse
+
 from . import util
+
+from markdown2 import Markdown
+
+from random import randrange
 
 # home page
 # home page
@@ -30,8 +35,10 @@ def index(request):
 # single entry page
 # single entry page
 def single_entry(request, slug):
-    entry = util.get_entry(slug)
-    if entry:
+    single_entry = util.get_entry(slug)
+    if single_entry:
+        converter = Markdown()
+        entry = converter.convert(single_entry)
         context = {
             "entry": entry,
             "slug": slug
@@ -95,3 +102,11 @@ def edit_entry(request, slug):
             }  
         return render(request, "encyclopedia/edit_entry.html", context)
     
+# random page
+# random page
+# random page
+def random(request):
+    entry_list = util.list_entries()
+    random_number = randrange(len(entry_list))
+    random_entry = entry_list[random_number]
+    return redirect("single-entry", slug=random_entry )

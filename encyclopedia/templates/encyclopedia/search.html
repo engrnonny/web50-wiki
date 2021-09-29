@@ -11,9 +11,6 @@
 {% block body %}
     <h1>Search</h1>
     {% if search_result %}
-        <h2>
-            No exact match
-        </h2>
         <p>There are no exact matches for <em><b>{{ q }}</b></em>. entry. Possible entries include; </p>
         <ul>
             {% for entry in search_result %}
